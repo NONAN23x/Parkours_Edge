@@ -1,32 +1,63 @@
-using System.Diagnostics;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Logger : MonoBehaviour
 { 
-    public int speed = 10;
-    public float salary = 10.3f;
+    private InterfaceManager InterfaceManagerScript;
 
-    public string myName = "nomaan";
+    bool playerHasDied = false;
 
-    public Rigidbody rb;
+    void Start()
+    {
+        int currentScene = SceneManager.GetActiveScene().buildIndex;
+        InterfaceManagerScript = FindObjectOfType<InterfaceManager>();
+    }
 
-    void Update()
+    void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.R)) {
             reloadScene();
         }
+
         if (Input.GetKey(KeyCode.M)) {
             MainMenu();
         }
+
         if(Input.GetKey(KeyCode.Q)) {
             Application.Quit();
         }
+
         if (Input.GetKey(KeyCode.L)) {
             PlayerPrefs.DeleteAll();
         }
+
+        if (gameObject.transform.position.y < -5f) {
+            startDefeatScene();
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        switch(other.gameObject.tag) {
+            case "Trap":
+                startDefeatScene();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void startDefeatScene()
+    {
+        if (!playerHasDied) {
+                playerHasDied = true;
+                InterfaceManagerScript.deathSequence();
+                Invoke("reloadScene", 1f);;
+            }
+        else {return;}
+        Debug.Log("You Died!");
+        playerHasDied = false;
+        
     }
 
     void MainMenu() {
@@ -36,8 +67,9 @@ public class Logger : MonoBehaviour
         SceneManager.LoadScene(menuIndex);
     }
 
-    void reloadScene() {
+    public void reloadScene() {
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.buildIndex);
     }
+
 }

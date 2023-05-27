@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -50,8 +48,9 @@ public class LevelManager : MonoBehaviour
     
     public void tutorial() {
         Debug.Log("Hit Tutorial!");
-        SceneManager.LoadScene(13);
+        LoadLevel(13);
     }
+
     public void LoadLevel(int sceneIndex)
     {
         Cursor.visible = false;

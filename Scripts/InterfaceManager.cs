@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,12 +5,9 @@ public class InterfaceManager : MonoBehaviour
 {
     public GameObject pauseMenuUI;
     public GameObject runningUI;
+    public GameObject deathScreenUI;
+
     private static bool gameIsPaused = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -31,7 +26,7 @@ public class InterfaceManager : MonoBehaviour
             gameIsPaused = true;
             pauseMenuUI.SetActive(true);
             runningUI.SetActive(false);
-            Time.timeScale = 0.0f;
+            Time.timeScale = 0.15f;
         //}
     }
 
@@ -45,6 +40,13 @@ public class InterfaceManager : MonoBehaviour
             runningUI.SetActive(true);
             Time.timeScale = 1.0f;
         }
+    }
+
+    public void deathSequence() {
+        Debug.Log("You Died");
+        pauseMenuUI.SetActive(false);
+        runningUI.SetActive(false);
+        deathScreenUI.SetActive(true);
     }
 
     public void mainMenu() {
