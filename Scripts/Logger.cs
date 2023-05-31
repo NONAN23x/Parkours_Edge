@@ -42,12 +42,16 @@ public class Logger : MonoBehaviour
             case "Trap":
                 startDefeatScene();
                 break;
+            case "CheckPoint":
+                //do something
+                break;
             default:
+                Debug.Log(other.gameObject.tag);
                 break;
         }
     }
 
-    private void startDefeatScene()
+    public void startDefeatScene()
     {
         if (!playerHasDied) {
                 playerHasDied = true;
