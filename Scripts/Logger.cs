@@ -1,11 +1,14 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Playables;
 
 public class Logger : MonoBehaviour
 { 
     private InterfaceManager InterfaceManagerScript;
 
     bool playerHasDied = false;
+
+    public PlayableDirector timelineDirector;
 
     void Start()
     {
@@ -34,6 +37,7 @@ public class Logger : MonoBehaviour
         if (gameObject.transform.position.y < -5f) {
             startDefeatScene();
         }
+
     }
 
     void OnTriggerEnter(Collider other)
